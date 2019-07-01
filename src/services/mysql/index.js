@@ -16,10 +16,12 @@ const postsModule = require('./posts')({ connection, errorHandler })
 const categoriasModule = require('./categorias')({ connection, errorHandler })
 const usuariosModule = require('./usuarios')({ connection, errorHandler })
 const authModule = require('./auth')({ connection, errorHandler })
+const anunciosModule = require('./anuncios')({ connection, errorHandler })
 
 module.exports = {
     posts: () => postsModule,
     categorias: () => categoriasModule,
     usuarios: () => usuariosModule,
-    auth: () => authModule
+    auth: () => authModule,
+    anuncios: () => anunciosModule
 } 

@@ -10,7 +10,7 @@ const usuarios = deps => {
                         errorHandler(error, 'Falha ao listar.', reject)
                         return false
                     }
-                    resolve({ usuarios: results })
+                    resolve(results)
                 })
             })
         },

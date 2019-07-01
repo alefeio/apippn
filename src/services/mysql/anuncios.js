@@ -1,9 +1,9 @@
-const categorias = deps => {
+const anuncios = deps => {
     return {
         all: () => {
             return new Promise((resolve, reject) => {
                 const { connection, errorHandler } = deps
-                connection.query('SELECT * FROM categorias', (error, results) => {
+                connection.query('SELECT * FROM anuncios WHERE tipo = 2 AND ativo = 1 ORDER BY id DESC LIMIT 1', (error, results) => {
                     if (error) {
                         errorHandler(error, 'Falha ao listar.', reject)
                         return false
@@ -51,4 +51,4 @@ const categorias = deps => {
     }
 }
 
-module.exports = categorias
+module.exports = anuncios
