@@ -12,7 +12,7 @@ const jwtMiddleware = (deps) => {
             }
 
             try {
-                req.decoded = jwt.verify(token, process.env.JWT_SECRET)
+                req.decoded = jwt.verify(token, '7272e3588e014a3a0b138529cb6a92a3629a8aba')
             } catch (error) {
                 res.send(403, { error: 'Falha ao autenticar o token' })
                 return false
