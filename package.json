@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "node src/index.js",
     "start": "node src/index.js",
     "test": "ava --verbose"
   },
@@ -16,7 +16,7 @@
     "eslint": "^5.16.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1",
-    "restify": "6.3.4",
+    "@types/restify": "5.0.6",
     "restify-cors-middleware": "^1.1.1",
     "sha1": "^1.1.1"
   },
