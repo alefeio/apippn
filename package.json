@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "nodemon": "^1.19.1",
-    "restify": "6.3.4",
+    "restify": "6.3.4"
   }
 }
