@@ -122,30 +122,35 @@ const routes = (server) => {
         next()
     })
 
-    server.get('/noticias-para/:d0/:d1/:d2/:d3/:d4/:d5/:d6', async (req, res, next) => {
-        console.log('PARAMETROS: ', req.params)
+    server.post('/noticias-para', async (req, res, next) => {
+        console.log('PARAMETROS: ', req.body)
         try {
-            res.send(await db.posts().noticiasPara(req.params))
+            res.send(await db.posts().noticiasPara(req.body))
         } catch (error) {
             res.send(error)
         }
         next()
     })
 
-    server.get('/noticias-nacionais/:d0/:d1/:d2/:d3/:d4/:d5/:d6', async (req, res, next) => {
-        console.log('PARAMETROS: ', req.params)
+    server.post('/noticias-nacionais', async (req, res, next) => {
+        console.log('PARAMETROS NACIONAIS: ', req.body)
         try {
-            res.send(await db.posts().noticiasNacionais(req.params))
+            res.send(await db.posts().noticiasNacionais(req.body))
         } catch (error) {
             res.send(error)
         }
         next()
     })
 
-    server.get('/por-categoria/:categ/:d0/:d1/:d2/:d3/:d4/:d5/:d6', async (req, res, next) => {
-        console.log('PARAMETROS: ', req.params)
+    server.post('/por-categoria', async (req, res, next) => {
+        console.log('PARAMETROS: ', req.body)
+        let dados = {
+            ids: req.body.ids,
+            categoria: req.body.categoria,
+            limite: req.body.limite
+        }
         try {
-            res.send(await db.posts().porCategoria(req.params))
+            res.send(await db.posts().porCategoria(dados))
         } catch (error) {
             res.send(error)
         }

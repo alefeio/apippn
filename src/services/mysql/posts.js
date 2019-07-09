@@ -282,7 +282,7 @@ const posts = deps => {
                 ON b.cidade = c.id
                 LEFT JOIN categorias ca
                 ON b.categoria = ca.id
-                WHERE b.id NOT IN (${ids.d0}, ${ids.d1}, ${ids.d2}, ${ids.d3}, ${ids.d4}, ${ids.d5}, ${ids.d6})
+                WHERE b.id NOT IN (${ids})
                 AND u.sigla = 'PA'
                 ORDER BY b.data DESC, b.hora DESC
                 LIMIT 6`,
@@ -315,7 +315,7 @@ const posts = deps => {
                 ON b.cidade = c.id
                 LEFT JOIN categorias ca
                 ON b.categoria = ca.id
-                WHERE b.id NOT IN (${ids.d0}, ${ids.d1}, ${ids.d2}, ${ids.d3}, ${ids.d4}, ${ids.d5}, ${ids.d6})
+                WHERE b.id NOT IN (${ids})
                 AND u.sigla != 'PA'
                 AND ca.id NOT IN (25)
                 ORDER BY b.data DESC, b.hora DESC
@@ -329,7 +329,7 @@ const posts = deps => {
                     })
             })
         },
-        porCategoria: (ids) => {
+        porCategoria: (dados) => {
             return new Promise((resolve, reject) => {
                 const { connection, errorHandler } = deps
                 connection.query(`
@@ -349,10 +349,10 @@ const posts = deps => {
                 ON b.cidade = c.id
                 LEFT JOIN categorias ca
                 ON b.categoria = ca.id
-                WHERE b.id NOT IN (${ids.d0}, ${ids.d1}, ${ids.d2}, ${ids.d3}, ${ids.d4}, ${ids.d5}, ${ids.d6})
-                AND ca.nomeCateg = "${ids.categ}"
+                WHERE b.id NOT IN (${dados.ids})
+                AND ca.nomeCateg = "${dados.categoria}"
                 ORDER BY b.data DESC, b.hora DESC
-                LIMIT 3`,
+                LIMIT ${dados.limite}`,
                     (error, results) => {
                         if (error) {
                             errorHandler(error, 'Falha ao listar.', reject)
