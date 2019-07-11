@@ -511,6 +511,18 @@ const posts = deps => {
                 })
             })
         },
+        enviarContato: (nome, email, tel, site, ip, mensagem) => {
+            return new Promise((resolve, reject) => {
+                const { connection, errorHandler } = deps
+                connection.query('INSERT INTO contato (nome, email, tel, site, ip, msg, data) VALUES (?, ?, ?, ?, ?, ?, NOW())', [nome, email, tel, site, ip, mensagem], (error, results) => {
+                    if (error) {
+                        errorHandler(error, 'Falha ao salvar.', reject)
+                        return false
+                    }
+                    resolve({ nome, email, tel, site, ip, mensagem, id: results.insertId })
+                })
+            })
+        },
         curtir: (idPost, ip) => {
             return new Promise((resolve, reject) => {
                 const { connection, errorHandler } = deps

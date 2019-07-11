@@ -194,6 +194,16 @@ const routes = (server) => {
         next()
     })
 
+    server.post('/contato', async (req, res, next) => {
+        const { nome, email, tel, site, ip, mensagem } = req.body
+        try {
+            res.send(await db.posts().enviarContato(nome, email, tel, site, ip, mensagem))
+        } catch (error) {
+            res.send(error)
+        }
+        next()
+    })
+
     server.post('/curtir', async (req, res, next) => {
         const { idPost, ip } = req.body
         try {

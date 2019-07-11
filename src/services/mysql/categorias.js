@@ -3,7 +3,7 @@ const categorias = deps => {
         all: () => {
             return new Promise((resolve, reject) => {
                 const { connection, errorHandler } = deps
-                connection.query('SELECT * FROM categorias', (error, results) => {
+                connection.query('SELECT * FROM categorias WHERE urlCateg != "loterias" AND urlCateg != "jogos" AND urlCateg != "horoscopo" AND urlCateg != "agenda-cultural"', (error, results) => {
                     if (error) {
                         errorHandler(error, 'Falha ao listar.', reject)
                         return false
