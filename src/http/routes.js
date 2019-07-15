@@ -69,7 +69,19 @@ const routes = (server) => {
         next()
     })
 
+    server.get('/acesso-post/:url', async (req, res, next) => {
+        let url = req.params.url
+        // console.log('url acessoPost: ', url)
+        try {
+            res.send(await db.posts().acessoPost(url))
+        } catch (error) {
+            res.send(error)
+        }
+        next()
+    })
+
     server.get('/noticia/:url', async (req, res, next) => {
+        // console.log('noticia: ', req.params.url)
         try {
             res.send(await db.posts().byUrl(req.params.url))
         } catch (error) {
@@ -123,7 +135,7 @@ const routes = (server) => {
     })
 
     server.post('/noticias-para', async (req, res, next) => {
-        console.log('PARAMETROS: ', req.body)
+        // console.log('PARAMETROS: ', req.body)
         try {
             res.send(await db.posts().noticiasPara(req.body))
         } catch (error) {
@@ -133,7 +145,7 @@ const routes = (server) => {
     })
 
     server.post('/noticias-nacionais', async (req, res, next) => {
-        console.log('PARAMETROS NACIONAIS: ', req.body)
+        // console.log('PARAMETROS NACIONAIS: ', req.body)
         try {
             res.send(await db.posts().noticiasNacionais(req.body))
         } catch (error) {
@@ -143,7 +155,7 @@ const routes = (server) => {
     })
 
     server.post('/por-categoria', async (req, res, next) => {
-        console.log('PARAMETROS: ', req.body)
+        // console.log('PARAMETROS: ', req.body)
         let dados = {
             ids: req.body.ids,
             categoria: req.body.categoria,
@@ -158,7 +170,7 @@ const routes = (server) => {
     })
 
     server.get('/relacionados/:url/:categoria', async (req, res, next) => {
-        console.log('PARAMETROS: ', req.params.categoria)
+        // console.log('PARAMETROS: ', req.params.categoria)
         try {
             res.send(await db.posts().relacionados(req.params.url, req.params.categoria))
         } catch (error) {
@@ -182,6 +194,26 @@ const routes = (server) => {
         } catch (error) {
             res.send(error)
         }
+    })
+
+    server.post('/acesso', async (req, res, next) => {
+        const { url_atual, ip } = req.body
+        try {
+            res.send(await db.posts().acesso(url_atual, ip))
+            // console.log('acessando: ', req.body)
+        } catch (error) {
+            res.send(error)
+        }
+        next()
+    })
+
+    server.get('/qtd-acesso', async (req, res, next) => {
+        try {
+            res.send(await db.posts().qtdAcesso())
+        } catch (error) {
+            res.send(error)
+        }
+        next()
     })
 
     server.post('/comentario', async (req, res, next) => {

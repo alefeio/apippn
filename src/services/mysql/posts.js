@@ -96,6 +96,19 @@ const posts = deps => {
                     })
             })
         },
+        acessoPost: (url) => {
+            return new Promise((resolve, reject) => {
+                const { connection, errorHandler } = deps
+                connection.query(`UPDATE blog SET visitas = (visitas+1) WHERE url = "${url}"`,
+                    (error, results) => {
+                        if (error) {
+                            errorHandler(error, 'Falha ao atualizar.', reject)
+                            return false
+                        }
+                        resolve(results)
+                    })
+            })
+        },
         byUrl: (url) => {
             return new Promise((resolve, reject) => {
                 const { connection, errorHandler } = deps
@@ -124,7 +137,8 @@ const posts = deps => {
                 ON co.post = b.id
                 WHERE b.url = "${url}"
                 GROUP BY cu.post
-                LIMIT 1`,
+                LIMIT 1
+                `,
                     (error, results) => {
                         if (error) {
                             errorHandler(error, 'Falha ao listar.', reject)
@@ -490,6 +504,35 @@ const posts = deps => {
                 GROUP BY co.post 
                 ORDER BY SUM(co.qtd) DESC, b.data DESC, b.hora DESC 
                 LIMIT 2`,
+                    (error, results) => {
+                        if (error) {
+                            errorHandler(error, 'Falha ao listar.', reject)
+                            return false
+                        }
+                        resolve(results)
+                    })
+            })
+        },
+
+        acesso: (url_atual, ip) => {
+            return new Promise((resolve, reject) => {
+                const { connection, errorHandler } = deps
+                if ((url_atual != 'www.portalparanews.com.br/img/apple-touch-icon-114x114.png' && url_atual != 'www.portalparanews.com.br/img/apple-touch-icon-72x72.png' && url_atual != 'www.portalparanews.com.br/img/apple-touch-icon.png' && url_atual != 'www.portalparanews.com.br/wp-login.php' && url_atual != 'www.portalparanews.com.br/robots.txt' && url_atual != 'portalparanews.com.br/robots.txt' && url_atual != 'www.portalparanews.com.br/img/favicon.ico') && (ip != '66.249.73.209' && ip != '66.249.73.211' && ip != '66.249.73.213')) {
+                    connection.query('INSERT INTO acesso (ip, url) VALUES (?, ?)', [ip, url_atual], (error, results) => {
+                        if (error) {
+                            errorHandler(error, 'Falha ao salvar.', reject)
+                            return false
+                        }
+                        resolve({ url_atual, ip, id: results.insertId })
+                    })
+                }
+            })
+        },
+        qtdAcesso: () => {
+            return new Promise((resolve, reject) => {
+                const { connection, errorHandler } = deps
+                connection.query(`
+                SELECT id FROM acesso ORDER BY id DESC LIMIT 1`,
                     (error, results) => {
                         if (error) {
                             errorHandler(error, 'Falha ao listar.', reject)
