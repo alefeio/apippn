@@ -1,4 +1,4 @@
-const mysqlServer = require('mysql')
+const mysql = require('mysql')
 
 const db_config = {
     host: 'portalparanews.com.br',
@@ -7,65 +7,33 @@ const db_config = {
     database: 'ppn_bd'
 }
 
-// var mysql = require('mysql');
-var pool  = mysqlServer.createPool(db_config);
-let connection = mysqlServer.createConnection(db_config)
+var connection;
 
-pool.query('SELECT 1 + 9 AS solution', function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
+                                                  // the old one cannot be reused.
+
+  connection.connect(function(err) {              // The server is either down
+      if(err) {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+      }                                     // to avoid a hot loop, and to allow our node script to
+  });                                     // process asynchronous requests in the meantime.
+                                          // If you're also serving http, display a 503 error.
+  connection.on('error', function(err) {
+      console.log('db error', err);
+      if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+      } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+      }
   });
+}
 
-  pool.getConnection(function(err, connection) {
-    if (err) throw err; // not connected!
-  
-    // Use the connection
-    connection.query(`SELECT id FROM blog ORDER BY id DESC LIMIT 1`, function (error, results, fields) {
-      // When done with the connection, release it.
-      connection.release();
-  
-      // Handle error after the release.
-      if (error) throw error;
-  
-      // Don't use the connection here, it has been returned to the pool.
-    });
-  });
+handleDisconnect();
 
-// let connection;
-
-// function handleDisconnect() {
-//     connection = mysqlServer.createConnection(db_config); // Recreate the connection, since
-//     // the old one cannot be reused.
-
-//     connection.connect(function (err) {              // The server is either down
-//         if (err) {                                     // or restarting (takes a while sometimes).
-//             console.log('error when connecting to db:', err);
-//             setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-//         }                                     // to avoid a hot loop, and to allow our node script to
-//     });                                     // process asynchronous requests in the meantime.
-//     // If you're also serving http, display a 503 error.
-//     connection.on('error', function (err) {
-//         console.log('db error', err);
-//         if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-//             handleDisconnect();                         // lost due to either server restart, or a
-//         } else {                                      // connnection idle timeout (the wait_timeout
-//             throw err;                                  // server variable configures this)
-//         }
-//     });
-// }
-
-// handleDisconnect()
-
-// let pool = mysqlServer.createPool(db_config);
-
-// pool.on('connection', function (_conn) {
-//     if (_conn) {
-//         logger.info('Connected the database via threadId %d!!', _conn.threadId);
-//         _conn.query('SET SESSION auto_increment_increment=1');
-//     }
-// });
-
-// connection = mysqlServer.createConnection(db_config)
+// init connection
+connection = mysql.createConnection(db_config);
 
 const errorHandler = (error, msg, rejectFunction) => {
     console.error(error)
