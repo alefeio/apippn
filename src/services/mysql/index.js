@@ -33,7 +33,7 @@ function handleDisconnect() {
 handleDisconnect();
 
 // init connection
-connection = mysql.createConnection(db_config);
+// connection = mysql.createConnection(db_config);
 
 const errorHandler = (error, msg, rejectFunction) => {
     console.error(error)
