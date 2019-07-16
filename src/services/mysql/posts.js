@@ -1,35 +1,73 @@
+var sequelize = require('../sequelize');
+
+
 const posts = deps => {
     return {
         destaquePrincipal: () => {
             return new Promise((resolve, reject) => {
+
                 const { connection, errorHandler } = deps
-                connection.query(`
-                SELECT 
-                b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
-                p.nome pais,
-                u.sigla uf,
-                c.nome cidade,
-                ca.nomeCateg categoria,
-                ca.urlCateg urlCategoria
-                FROM blog b
-                LEFT JOIN pais p
-                ON b.pais = p.id
-                LEFT JOIN uf u
-                ON b.uf = u.id
-                LEFT JOIN cidade c
-                ON b.cidade = c.id
-                LEFT JOIN categorias ca
-                ON b.categoria = ca.id
-                WHERE b.destaque = 1
-                ORDER BY b.data DESC, b.hora DESC
-                LIMIT 3`,
-                    (error, results) => {
-                        if (error) {
-                            errorHandler(error, 'Falha ao listar.', reject)
-                            return false
-                        }
+
+                // connection.query(`
+                // SELECT 
+                // b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                // p.nome pais,
+                // u.sigla uf,
+                // c.nome cidade,
+                // ca.nomeCateg categoria,
+                // ca.urlCateg urlCategoria
+                // FROM blog b
+                // LEFT JOIN pais p
+                // ON b.pais = p.id
+                // LEFT JOIN uf u
+                // ON b.uf = u.id
+                // LEFT JOIN cidade c
+                // ON b.cidade = c.id
+                // LEFT JOIN categorias ca
+                // ON b.categoria = ca.id
+                // WHERE b.destaque = 1
+                // ORDER BY b.data DESC, b.hora DESC
+                // LIMIT 3`,
+                //     (error, results) => {
+                //         if (error) {
+                //             errorHandler(error, 'Falha ao listar.', reject)
+                //             return false
+                //         }
+                //         resolve(results)
+                //     })
+                 
+
+
+                // Novo trecho de codigo utilizando o sequelize
+                try {
+                    sequelize.query(`
+                    SELECT 
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    p.nome pais,
+                    u.sigla uf,
+                    c.nome cidade,
+                    ca.nomeCateg categoria,
+                    ca.urlCateg urlCategoria
+                    FROM blog b
+                    LEFT JOIN pais p
+                    ON b.pais = p.id
+                    LEFT JOIN uf u
+                    ON b.uf = u.id
+                    LEFT JOIN cidade c
+                    ON b.cidade = c.id
+                    LEFT JOIN categorias ca
+                    ON b.categoria = ca.id
+                    WHERE b.destaque = 1
+                    ORDER BY b.data DESC, b.hora DESC
+                    LIMIT 3`).spread(function(results, metadata) {
                         resolve(results)
-                    })
+                    })    
+                }catch(err){
+                    errorHandler(error, 'Falha ao listar.', reject)
+                    return false
+                }
+
+
             })
         },
         destaqueLateral: () => {
