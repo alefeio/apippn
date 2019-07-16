@@ -10,6 +10,7 @@ const db_config = {
 var connection;
 
 function handleDisconnect() {
+  console.log('Conectando com o banco');  
   connection = mysql.createConnection(db_config); // Recreate the connection, since
                                                   // the old one cannot be reused.
 
