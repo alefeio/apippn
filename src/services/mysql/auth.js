@@ -5,20 +5,22 @@ const auth = deps => {
     return {
         authenticate: (email, senha) => {
             return new Promise((resolve, reject) => {
-                const { connection, errorHandler } = deps
-                const queryString = 'SELECT id, email FROM usuarios WHERE email = ? AND senha = ?'
-                const queryData = [email, sha1(senha)]
+                const { sequelize, errorHandler } = deps
 
-                connection.query(queryString, queryData, (error, results) => {
-                    if (error || !results.length) {
-                        errorHandler(error, 'Falha ao localizar usuário.', reject)
-                        return false
-                    }
 
-                    const { email, id } = results[0]
-                    const token = jwt.sign({ email, id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 })
-                    resolve({ token })
-                })
+                try {
+                    sequelize.query(`
+                    SELECT id, email FROM usuarios WHERE email = '${email}' AND senha = '${sha1(senha)}'
+                    `).spread(function(results, metadata) {
+                        const { email, id } = results[0]
+                        const token = jwt.sign({ email, id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 })
+                        resolve({ token })
+                    })    
+                }catch(err){
+                    errorHandler(error, 'Falha ao localizar usuário.', reject)
+                    return false
+                }
+               
             })
         }
     }
