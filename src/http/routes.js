@@ -144,6 +144,16 @@ const routes = (server) => {
         next()
     })
 
+    server.get('/filtro/:filtro', async (req, res, next) => {
+        // console.log('PARAMETROS: ', req.body)
+        try {
+            res.send(await db.posts().noticiasParaTodas(req.params.filtro))
+        } catch (error) {
+            res.send(error)
+        }
+        next()
+    })
+
     server.post('/noticias-nacionais', async (req, res, next) => {
         // console.log('PARAMETROS NACIONAIS: ', req.body)
         try {

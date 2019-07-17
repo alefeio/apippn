@@ -293,7 +293,7 @@ const posts = deps => {
                     LEFT JOIN categorias ca
                     ON b.categoria = ca.id
                     WHERE ca.urlCateg = "${categoria}"
-                    AND (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 5 DAY) AND NOW())
+                    AND (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND NOW())
                     ORDER BY b.data DESC, b.hora DESC
                     `).spread(function(results, metadata) {
                         resolve(results)
@@ -332,6 +332,43 @@ const posts = deps => {
                     ORDER BY b.data DESC, b.hora DESC
                     LIMIT 6
                     `).spread(function(results, metadata) {
+                        resolve(results)
+                    })    
+                }catch(err){
+                    errorHandler(error, 'Falha ao listar.', reject)
+                    return false
+                }
+            })
+        },
+        noticiasParaTodas: (filtro) => {
+            return new Promise((resolve, reject) => {
+                const { sequelize, errorHandler } = deps
+
+                try {
+                    let query = `
+                    SELECT 
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    p.nome pais,
+                    u.sigla uf,
+                    c.nome cidade,
+                    ca.nomeCateg categoria,
+                    ca.urlCateg urlCategoria
+                    FROM blog b
+                    LEFT JOIN pais p
+                    ON b.pais = p.id
+                    LEFT JOIN uf u
+                    ON b.uf = u.id
+                    LEFT JOIN cidade c
+                    ON b.cidade = c.id
+                    LEFT JOIN categorias ca
+                    ON b.categoria = ca.id
+                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND NOW()) 
+                    `
+                    if(filtro == 'para') query += ` AND u.sigla = 'PA'`
+                    else query += ` AND u.sigla != 'PA'`
+                    query += ` ORDER BY b.data DESC, b.hora DESC`
+                    
+                    sequelize.query(query).spread(function(results, metadata) {
                         resolve(results)
                     })    
                 }catch(err){
