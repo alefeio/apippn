@@ -371,6 +371,9 @@ const routes = (server) => {
                     <meta property="og:locale" content="pt_BR" />
                 </head>
                 <body>
+                <script>
+                    window.location.href = "${linkFront}"; 
+                </script>
                 </body>
             </html>`; 
         
