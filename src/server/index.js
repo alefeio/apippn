@@ -3,6 +3,7 @@ const server = restify.createServer()
 const routes = require('../http/routes')
 const cors = require('./cors')
 const jwtMiddleware = require('./jwtMiddleware')
+const fs = require('fs')
 
 const exclusions = ['/autenticacao', '/categorias', '/posts', '/destaques-principais', '/destaques-laterais', '/anuncios', '/noticias-para', '/noticias-nacionais', '/por-categoria', '/posts-populares', '/mais-curtidas', '/mais-comentadas']
 

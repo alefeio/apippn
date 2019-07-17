@@ -323,6 +323,67 @@ const routes = (server) => {
             res.send(error)
         }
     })
+
+    server.get('/share-noticia/:url', async(req, res, next) => {
+        const { url } = req.params
+        try {
+            const noticia = await db.posts().byUrl(req.params.url);
+
+            // console.log(noticia[0]);
+
+            //res.send(await db.share().compartilharNoticia(idPost))
+
+            const image     = 'http://www.portalparanews.com.br/imgBlog/' + noticia[0]['img'];
+            const linkFront = 'http://portalparanews.com.br/noticia/' + noticia[0]['url'];
+
+            const titulo = noticia[0]['titulo'];
+            const descricao = ``;
+        
+            let htmlTemplate = `
+            <html>
+                <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+                    <!-- MS Tile - for Microsoft apps-->
+                    <meta name="msapplication-TileImage" content="${image}">
+        
+                    <!-- fb & Whatsapp -->
+        
+                    <!-- Site Name, Title, and Description to be displayed -->
+                    <meta property="og:site_name" content="Portal Pará News">
+                    <meta property="og:title" content="${titulo}">
+                    <meta property="og:description" content="${descricao}">
+        
+                    <!-- Image to display -->
+                    <!-- Replace   «example.com/image01.jpg» with your own -->
+                    <meta property="og:image" content="${image}">
+        
+                    <!-- No need to change anything here -->
+                    <meta property="og:type" content="website" />
+                    <meta property="og:image:type" content="image/jpeg">
+        
+                    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+                    <meta property="og:image:width" content="220">
+                    <meta property="og:image:height" content="60">
+        
+                    <!-- Website to visit when clicked in fb or WhatsApp-->
+                    <meta property="og:url" content="${linkFront}">
+        
+                    <meta property="og:locale" content="pt_BR" />
+                </head>
+                <body>
+                </body>
+            </html>`; 
+        
+        
+                res.setHeader('Content-Type', 'text/html');
+                res.writeHead(200);
+                res.end(htmlTemplate);
+                next();
+
+        } catch (error) {
+            res.send(error)
+        }
+    })
 }
 
 module.exports = routes

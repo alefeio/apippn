@@ -12,10 +12,13 @@ const usuariosModule = require('./usuarios')({ sequelize, errorHandler })
 const authModule = require('./auth')({ sequelize, errorHandler })
 const anunciosModule = require('./anuncios')({ sequelize, errorHandler })
 
+const shareModule = require('./share')({ sequelize, errorHandler })
+
 module.exports = {
     posts: () => postsModule,
     categorias: () => categoriasModule,
     usuarios: () => usuariosModule,
     auth: () => authModule,
-    anuncios: () => anunciosModule
+    anuncios: () => anunciosModule,
+    share: () => shareModule
 } 

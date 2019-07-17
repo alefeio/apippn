@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 var sequelize = new Sequelize('ppn_bd', 'ppn_user', 'al301159', {
   host: 'portalparanews.com.br',
   dialect: 'mysql',
-  logging: true, // True caso voce deseje ver as querys no console
+  logging: false, // True caso voce deseje ver as querys no console
   pool: {
       max: 5,
       min: 0,

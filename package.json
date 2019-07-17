@@ -31,6 +31,7 @@
     "restify-cors-middleware": "^1.1.1",
     "sequelize": "^5.10.1",
     "sha1": "^1.1.1",
+    "twig": "^1.13.3",
     "utf8": "^3.0.0"
   }
 }
