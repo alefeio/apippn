@@ -671,9 +671,9 @@ const posts = deps => {
 
                 try {
                     sequelize.query(`
-                    INSERT INTO curtidas (post, ip) VALUES ('${idPost}', '${ip}')
-                    `).spread(function(results, metadata) {
-                        resolve(results)
+                    INSERT INTO curtidas (post, ip) VALUES (${idPost}, '${ip}')
+                    `).spread(function(results, metadata) {                    
+                        resolve({ok: true})
                     })    
                 }catch(err){
                     errorHandler(error, 'Falha ao listar.', reject)
