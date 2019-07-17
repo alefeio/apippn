@@ -401,7 +401,7 @@ const posts = deps => {
                     ON b.categoria = ca.id
                     WHERE b.id NOT IN (${ids})
                     AND u.sigla != 'PA'
-                    AND ca.id NOT IN (25)
+                    AND ca.id NOT IN (25, 31, 37, 38, 39, 40)
                     ORDER BY b.data DESC, b.hora DESC
                     LIMIT 6
                     `).spread(function(results, metadata) {
