@@ -8,7 +8,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -43,7 +43,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                         SELECT 
-                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                         p.nome pais,
                         u.sigla uf,
                         c.nome cidade,
@@ -78,7 +78,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                         SELECT 
-                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                         p.nome pais,
                         u.sigla uf,
                         c.nome cidade,
@@ -129,7 +129,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                         SELECT 
-                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                         p.nome pais,
                         u.sigla uf,
                         c.nome cidade,
@@ -217,7 +217,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                         SELECT 
-                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                        b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                         p.nome pais,
                         u.sigla uf,
                         c.nome cidade,
@@ -277,7 +277,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -312,7 +312,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -347,7 +347,7 @@ const posts = deps => {
                 try {
                     let query = `
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -384,7 +384,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -421,7 +421,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -456,7 +456,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -492,7 +492,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -526,7 +526,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
@@ -563,7 +563,7 @@ const posts = deps => {
                 try {
                     sequelize.query(`
                     SELECT 
-                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas,
+                    b.id, b.titulo, b.img, b.tipo, b.thumb, b.descricao, b.conteudo, b.url, b.data, b.hora, b.destaque, b.visitas, b.hr_postagem,
                     p.nome pais,
                     u.sigla uf,
                     c.nome cidade,
