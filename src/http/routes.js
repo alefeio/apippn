@@ -397,7 +397,7 @@ const routes = (server) => {
 
             //res.send(await db.share().compartilharNoticia(idPost))
 
-            const image     = 'http://www.portalparanews.com.br/imgBlog/' + noticia[0]['img'];
+            const image     = 'http://www.portalparanews.com.br/imgBlog/' + noticia[0]['thumb'];
             const linkFront = 'http://portalparanews.com.br/noticia/' + noticia[0]['url'];
 
             const titulo = noticia[0]['titulo'];
