@@ -14,6 +14,14 @@ const routes = (server) => {
             
         }
     })
+
+    server.get('/anunciosp', async (req, res, next) => {
+        try {
+            res.send(await db.anuncios().principal())
+        } catch (error) {
+            
+        }
+    })
     
     server.get('/destaques-principais', async (req, res, next) => {
         try {

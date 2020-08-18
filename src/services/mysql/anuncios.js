@@ -16,6 +16,22 @@ const anuncios = deps => {
                 }
             })
         },
+        principal: () => {
+            return new Promise((resolve, reject) => {
+                const { sequelize, errorHandler } = deps
+
+                try {
+                    sequelize.query(`
+                    SELECT * FROM anuncios WHERE tipo = 1 AND ativo = 1 ORDER BY id DESC LIMIT 1
+                    `).spread(function(results, metadata) {
+                        resolve(results)
+                    })    
+                }catch(err){
+                    errorHandler(error, 'Falha ao listar.', reject)
+                    return false
+                }
+            })
+        },
         save: (nome, url) => {
             return new Promise((resolve, reject) => {
                 const { sequelize, errorHandler } = deps
