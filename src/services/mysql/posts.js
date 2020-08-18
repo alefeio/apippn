@@ -330,7 +330,7 @@ const posts = deps => {
                     WHERE b.id NOT IN (${ids})
                     AND u.sigla = 'PA'
                     ORDER BY b.data DESC, b.hora DESC
-                    LIMIT 6
+                    LIMIT 9
                     `).spread(function(results, metadata) {
                         resolve(results)
                     })    
