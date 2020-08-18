@@ -509,7 +509,7 @@ const posts = deps => {
                     ON b.categoria = ca.id
                     WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND NOW()) 
                     ORDER BY b.visitas DESC, b.data DESC, b.hora DESC 
-                    LIMIT 2
+                    LIMIT 1
                     `).spread(function(results, metadata) {
                         resolve(results)
                     })    
@@ -547,7 +547,7 @@ const posts = deps => {
                     WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND NOW()) 
                     GROUP BY cu.post 
                     ORDER BY SUM(cu.curtida) DESC, b.data DESC, b.hora DESC 
-                    LIMIT 2
+                    LIMIT 1
                     `).spread(function(results, metadata) {
                         resolve(results)
                     })    
