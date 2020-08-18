@@ -362,7 +362,7 @@ const posts = (deps) => {
                     ON b.categoria = ca.id
                     WHERE b.id NOT IN (${ids})
                     AND u.sigla = 'PA'
-                    AND ca.nomeCateg NOT IN ('Oportunidades', 'Utilidade Pública', 'Humor')
+                    AND ca.urlCategoria NOT IN ('oportunidades', 'utilidade-publica', 'humor')
                     ORDER BY b.data DESC, b.hora DESC
                     LIMIT 9
                     `
