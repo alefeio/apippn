@@ -553,7 +553,7 @@ const posts = (deps) => {
                     ON b.cidade = c.id
                     LEFT JOIN categorias ca
                     ON b.categoria = ca.id
-                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND NOW()) 
+                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 DAY) AND NOW()) 
                     ORDER BY b.visitas DESC, b.data DESC, b.hora DESC 
                     LIMIT 1
                     `
@@ -594,7 +594,7 @@ const posts = (deps) => {
                     ON b.categoria = ca.id
                     LEFT JOIN curtidas cu 
                     ON cu.post = b.id
-                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND NOW()) 
+                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 DAY) AND NOW()) 
                     GROUP BY cu.post 
                     ORDER BY SUM(cu.curtida) DESC, b.data DESC, b.hora DESC 
                     LIMIT 1
@@ -635,7 +635,7 @@ const posts = (deps) => {
                     ON b.categoria = ca.id
                     INNER JOIN comentarios co 
                     ON co.post = b.id
-                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 10 DAY) AND NOW()) 
+                    WHERE (b.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 DAY) AND NOW()) 
                     GROUP BY co.post 
                     ORDER BY SUM(co.qtd) DESC, b.data DESC, b.hora DESC 
                     LIMIT 2
