@@ -361,9 +361,6 @@ const posts = (deps) => {
                     LEFT JOIN categorias ca
                     ON b.categoria = ca.id
                     WHERE b.id NOT IN (${ids})
-                    AND ca.urlCategoria != 'oportunidades'
-                    AND ca.urlCategoria != 'utilidade-publica'
-                    AND ca.urlCategoria != 'humor'
                     ORDER BY b.data DESC, b.hora DESC
                     LIMIT 9
                     `
